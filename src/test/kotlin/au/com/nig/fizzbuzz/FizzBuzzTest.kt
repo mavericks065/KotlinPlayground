@@ -20,6 +20,7 @@ internal class FizzBuzzTest {
         assertEquals("fizz", result)
         assertEquals("fizz", result1)
     }
+
     @Test
     fun `should return buzz when receiving a multiple of 5`() {
         // Given
@@ -51,6 +52,7 @@ internal class FizzBuzzTest {
         assertEquals("fizzbuzz", result)
         assertEquals("fizzbuzz", result1)
     }
+
     @Test
     fun `should return number when receiving a number that is not a multiple of 3, 5, 15`() {
         // Given
@@ -62,6 +64,21 @@ internal class FizzBuzzTest {
 
         // THEN
         assertEquals("7", result)
+    }
+
+    @Test
+    fun `should be able to process a list of integers`() {
+        // Given
+        val fizzBuzz = FizzBuzz()
+        val numbers = listOf(1, 2, 3, 4, 5, 15)
+        val expectedResult = listOf("1", "2", "fizz", "4", "buzz", "fizzbuzz")
+
+        // When
+        // How to pass an anonymous function
+        val result = fizzBuzz.processList(numbers, fun(s: String): String { return s })
+
+        // Then
+        assertEquals(expectedResult, result)
     }
 
 }
