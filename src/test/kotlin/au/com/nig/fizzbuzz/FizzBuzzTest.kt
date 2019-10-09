@@ -20,6 +20,18 @@ internal class FizzBuzzTest {
         assertEquals("fizz", result)
         assertEquals("fizz", result1)
     }
+    @Test
+    fun `should return fizz when receiving a number with a 3`() {
+        // Given
+        val fizzBuzz = FizzBuzz()
+        val nb = 13
+
+        // WHEN
+        val result = fizzBuzz.getResult(nb)
+
+        // THEN
+        assertEquals("fizz", result)
+    }
 
     @Test
     fun `should return buzz when receiving a multiple of 5`() {
