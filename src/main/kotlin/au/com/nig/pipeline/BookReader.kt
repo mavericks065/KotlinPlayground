@@ -10,12 +10,11 @@ class BookReader(private val dataService: DataService) {
         val data: Map<String, Collection<String>> = dataService.getBooksReadOn(date)
         val entries = data.entries
             .filter { readers.contains(it.key) }
+            .filter { books.intersect(it.value).isNotEmpty() }
             .toHashSet()
         for (e in entries) {
             for (bookId in books) {
-                if (e.value.contains(bookId)) {
-                    result.add(e.key)
-                }
+                result.add(e.key)
             }
         }
         return result
