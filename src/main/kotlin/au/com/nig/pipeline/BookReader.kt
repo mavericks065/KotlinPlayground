@@ -8,9 +8,12 @@ class BookReader(private val dataService: DataService) {
     fun getReadersOfBooks(readers: Collection<String>, books: Collection<String>, date: Date): Set<String> {
         val result: MutableSet<String> = HashSet()
         val data: Map<String, Collection<String>> = dataService.getBooksReadOn(date)
-        for (e in data.entries) {
+        val entries = data.entries
+            .filter { readers.contains(it.key) }
+            .toHashSet()
+        for (e in entries) {
             for (bookId in books) {
-                if (e.value.contains(bookId) && readers.contains(e.key)) {
+                if (e.value.contains(bookId)) {
                     result.add(e.key)
                 }
             }
