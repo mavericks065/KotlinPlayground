@@ -8,14 +8,12 @@ class FizzBuzz {
     }
 
     fun getResult(number: Int): String {
-        if (number % 15 == 0)
-            return FIZZBUZZ
-        else if (isFuzz(number))
-            return FIZZ
-        else if (isBuzz(number))
-            return BUZZ
-        else
-            return number.toString()
+        return when {
+            number % 15 == 0 -> FIZZBUZZ
+            isFizz(number) -> FIZZ
+            isBuzz(number) -> BUZZ
+            else -> number.toString()
+        }
     }
 
     fun <U> processList(numbers: List<Int>, fn: (String) -> U): List<U> {
@@ -24,5 +22,5 @@ class FizzBuzz {
 
     private fun isBuzz(number: Int) = number % 5 == 0 || number.toString().contains("5")
 
-    private fun isFuzz(number: Int) = number % 3 == 0 || number.toString().contains("3")
+    private fun isFizz(number: Int) = number % 3 == 0 || number.toString().contains("3")
 }
