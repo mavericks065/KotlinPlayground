@@ -16,3 +16,7 @@ of the instanciation and can be null by default.
 * In a unit test: Create two employees with the exact same attibutes for each fields. See the difference between employee1.equals(employee2) and employee1 == employee2 
 * Re-define equals and hashcode and re-do the same comparison: employee1.equals(employee2) and employee1 == employee2. (For the sake of the exercise create another Employee class)   
  What can we deduct from that ? 
+
+
+Once you have finished or if you are blocked: you can read these articles
+* https://www.geeksforgeeks.org/difference-equals-method-java/
