@@ -21,8 +21,9 @@ internal class BasicMapOperationsTest {
         assertEquals(mapOf(Pair(13, "THIRSTEEN")), result)
     }
 
+
     @Test
-    fun `should insert elements and remove others`() {
+    fun `should add elements to mutable maps`() {
         // GIVEN
         val myMap = mutableMapOf(
             Pair(12, "twelve"),
@@ -30,6 +31,7 @@ internal class BasicMapOperationsTest {
             Pair(20, "twentieth"),
             Pair(2, "second")
         )
+
         // WHEN
         val result = BasicMapOperations.addElementsToMutableMap(myMap, Pair(3, "third"))
 
@@ -43,6 +45,18 @@ internal class BasicMapOperationsTest {
                 Pair(3, "third")
             ), result
         )
+    }
+
+
+    @Test
+    fun `should remove elements from mutable maps`() {
+        // GIVEN
+        val myMap = mutableMapOf(
+            Pair(12, "twelve"),
+            Pair(13, "thirsteen"),
+            Pair(20, "twentieth"),
+            Pair(2, "second")
+        )
 
         // WHEN
         // remove third element of the map
@@ -53,15 +67,25 @@ internal class BasicMapOperationsTest {
             mapOf(
                 Pair(12, "twelve"),
                 Pair(13, "thirsteen"),
-                Pair(2, "second"),
-                Pair(3, "third")
+                Pair(2, "second")
             ),
             result1
+        )
+    }
+
+    @Test
+    fun `should set elements in a map`() {
+        // GIVEN
+        val myMap = mutableMapOf(
+            Pair(12, "twelve"),
+            Pair(13, "thirsteen"),
+            Pair(20, "twentieth"),
+            Pair(2, "second")
         )
 
         // WHEN
         // set pair with key 3 to value = fourth
-        val result2 = BasicMapOperations.setValue(myMap, 3, "fourth")
+        val result2 = BasicMapOperations.setValue(myMap, 20, "fourth")
 
         // THEN
 
@@ -69,8 +93,8 @@ internal class BasicMapOperationsTest {
             mapOf(
                 Pair(12, "twelve"),
                 Pair(13, "thirsteen"),
-                Pair(2, "second"),
-                Pair(3, "fourth")
+                Pair(20, "fourth"),
+                Pair(2, "second")
             ),
             result2
         )
@@ -118,7 +142,6 @@ internal class BasicMapOperationsTest {
             result
         )
     }
-
 
 
     @Test
