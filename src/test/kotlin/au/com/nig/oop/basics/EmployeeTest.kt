@@ -16,6 +16,12 @@ object EmployeeTest: Spek({
 
             // When
             println(employee)
+            println(employee.firstName)
+            println(employee.lastName)
+
+            employee.firstName = "Nicolas"
+
+            println(employee.firstName)
 
             // Then
         }

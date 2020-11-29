@@ -1,8 +1,23 @@
 package au.com.nig.oop.basics
 
 data class Employee(
-    val firstName: String,
+    var firstName: String,
     val lastName: String
 ){
 
+}
+
+class Employee2 {
+    val firstName: String
+    val lastName: String
+
+    constructor() {
+        this.firstName = ""
+        this.lastName = ""
+    }
+
+    constructor(firstName: String, lastName: String) {
+        this.firstName = firstName
+        this.lastName = lastName
+    }
 }
