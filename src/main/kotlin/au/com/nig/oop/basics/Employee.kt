@@ -9,7 +9,8 @@ import java.util.Calendar
 data class Employee(
     var firstName: String,
     val lastName: String,
-    var dateOfBirth: Instant? = null
+    var dateOfBirth: Instant? = null,
+    var address: String? = null
 ) {
     fun getAge(): Int {
         val currentCallendar = Calendar.getInstance()
@@ -20,6 +21,8 @@ data class Employee(
         val birthYear = birthCallendar[Calendar.YEAR]
         return currentYear - birthYear
     }
+
+
 }
 
 class Employee2 {

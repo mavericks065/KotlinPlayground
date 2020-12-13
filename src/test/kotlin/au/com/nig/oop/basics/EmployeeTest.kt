@@ -43,5 +43,38 @@ object EmployeeTest: Spek({
             // Then
             assertEquals(55, result)
         }
+        it("should create two employess and compare the names"){
+            // Given
+            val birthDate = LocalDate.of(1965, 1,1)
+            val dateOfBirth = Instant.ofEpochMilli(birthDate.toEpochDay())
+
+            val employee1 = Employee(
+                firstName= "Paul",
+                lastName= "Vince"
+            )
+
+            val employee2 = Employee(
+                firstName= "Paul",
+                lastName= "Vince"
+            )
+
+
+            // When
+            println(employee1.firstName)
+            println(employee1.lastName)
+
+            println(employee2.firstName)
+            println(employee2.lastName)
+
+//            println(employee1.firstName == employee2.firstName)
+//            println(employee1.firstName.equals(employee2.firstName))
+
+            println(employee1 === employee2)
+            println(employee1.equals(employee2))
+
+            // Then
+            assertEquals(true, employee1 == employee2)
+            assertEquals(true, employee1.equals(employee2))
+        }
     }
 })
