@@ -3,9 +3,11 @@ package au.com.nig.coffemachine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class CoffeeMachineTest {
     @Test
-    public void testShouldReceiveCorrectInstructionToMakeDrinks(){
+    public void testShouldReceiveCorrectInstructionToMakeTea(){
         // Given
         String input = "T:1:0";
 
@@ -14,7 +16,33 @@ public class CoffeeMachineTest {
         String result = coffeeMachine.order(input);
 
         // Then
-        Assertions.assertEquals("Tea", result);
+        assertEquals("Tea", result);
+    }
+
+    @Test
+    public void testShouldReceiveCorrectInstructionToMakeChocolate(){
+        // Given
+        String input = "H::";
+
+        // When
+        CoffeeMachine coffeeMachine = new CoffeeMachine();
+        String result = coffeeMachine.order(input);
+
+        // Then
+        assertEquals("Chocolate", result);
+    }
+
+    @Test
+    public void testShouldReceiveCorrectInstructionToMakeCoffee(){
+        // Given
+        String input = "C:2:0";
+
+        // When
+        CoffeeMachine coffeeMachine = new CoffeeMachine();
+        String result = coffeeMachine.order(input);
+
+        // Then
+        assertEquals("Coffee", result);
     }
 }
 
