@@ -12,12 +12,13 @@ public class CoffeeMachineTest {
         // Given
         String input = "T:1:0";
 
+
         // When
         CoffeeMachine coffeeMachine = new CoffeeMachine();
-        String result = coffeeMachine.order(input);
+        Response result = coffeeMachine.order(input);
 
         // Then
-        assertEquals("Tea", result);
+        assertEquals(new Tea(1, false), result);
     }
 
     @Test
@@ -27,10 +28,10 @@ public class CoffeeMachineTest {
 
         // When
         CoffeeMachine coffeeMachine = new CoffeeMachine();
-        String result = coffeeMachine.order(input);
+        Response result = coffeeMachine.order(input);
 
         // Then
-        assertEquals("Chocolate", result);
+        assertEquals(new Chocolate(0,false), result);
     }
 
     @Test
@@ -40,10 +41,10 @@ public class CoffeeMachineTest {
 
         // When
         CoffeeMachine coffeeMachine = new CoffeeMachine();
-        String result = coffeeMachine.order(input);
+        Response result = coffeeMachine.order(input);
 
         // Then
-        assertEquals("Coffee", result);
+        assertEquals(new Coffee(2,false), result);
     }
 
     @Test
@@ -54,10 +55,10 @@ public class CoffeeMachineTest {
 
         // When
         CoffeeMachine coffeeMachine = new CoffeeMachine();
-        String result = coffeeMachine.order(input);
+        Response result = coffeeMachine.order(input);
 
         // Then
-        assertEquals("Messages", result);
+        assertEquals(new Message("Messages"), result);
     }
 }
 
