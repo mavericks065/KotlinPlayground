@@ -2,10 +2,15 @@ package au.com.nig.coffemachine;
 
 public class CoffeeMachine {
     public String order(String input) {
-        if (input.startsWith("T"))
+        String[] drink = input.split(":");
+
+        if (drink[0].equals("T"))
             return "Tea";
-        else if (input.startsWith("C"))
+        else if (drink[0].equals("C"))
             return "Coffee";
-        else return "Chocolate";
+        else if (drink[0].equals("H"))
+            return "Chocolate";
+        else
+            return drink[1];
     }
 }
