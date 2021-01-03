@@ -13,13 +13,12 @@ public class CoffeeMachineTest {
         // Given
         String input = "T:1:0";
 
-
         // When
         CoffeeMachine coffeeMachine = new CoffeeMachine();
         Response result = coffeeMachine.order(input);
 
         // Then
-        assertEquals(new Tea(1, false), result);
+        assertEquals(new Tea(1, true), result);
     }
 
     @Test
@@ -45,7 +44,7 @@ public class CoffeeMachineTest {
         Response result = coffeeMachine.order(input);
 
         // Then
-        assertEquals(new Coffee(2,false), result);
+        assertEquals(new Coffee(2,true), result);
     }
 
     @Test

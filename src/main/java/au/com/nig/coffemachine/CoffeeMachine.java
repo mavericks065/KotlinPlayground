@@ -8,13 +8,18 @@ public class CoffeeMachine {
 
         String sugarAmount = drink.length == 1 ? String.valueOf(0) : drink[1];
 
+        boolean hasStick = false;
+        if (drink.length != 2 && Integer.parseInt(sugarAmount) > 0)
+            hasStick = true;
+
+
         switch (drink[0]) {
             case "T":
-                return new Tea(Integer.valueOf(sugarAmount), false);
+                return new Tea(Integer.valueOf(sugarAmount), hasStick);
             case "C":
-                return new Coffee(Integer.valueOf(sugarAmount), false);
+                return new Coffee(Integer.valueOf(sugarAmount), hasStick);
             case "H":
-                return  new Chocolate(Integer.valueOf(sugarAmount), false);
+                return  new Chocolate(Integer.valueOf(sugarAmount), hasStick);
             default:
                 return new Message(drink[1]);
         }
