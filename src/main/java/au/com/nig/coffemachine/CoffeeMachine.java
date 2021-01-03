@@ -12,8 +12,14 @@ public class CoffeeMachine {
         if (drink.length != 2 && Integer.parseInt(sugarAmount) > 0)
             hasStick = true;
 
+        CoffeeMachineFactory coffeeMachineFactory = new CoffeeMachineFactory();
+        return coffeeMachineFactory.getResponse(drink, sugarAmount, hasStick);
+    }
+}
 
-        switch (drink[0]) {
+class CoffeeMachineFactory {
+    public Response getResponse(String[] responseType, String sugarAmount, boolean hasStick) {
+        switch (responseType[0]) {
             case "T":
                 return new Tea(Integer.valueOf(sugarAmount), hasStick);
             case "C":
@@ -21,7 +27,7 @@ public class CoffeeMachine {
             case "H":
                 return  new Chocolate(Integer.valueOf(sugarAmount), hasStick);
             default:
-                return new Message(drink[1]);
+                return new Message(responseType[1]);
         }
     }
 }
