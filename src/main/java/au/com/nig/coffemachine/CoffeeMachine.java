@@ -6,13 +6,15 @@ public class CoffeeMachine {
     public Response order(String input) {
         String[] drink = input.split(":");
 
+        String sugarAmount = drink.length == 1 ? String.valueOf(0) : drink[1];
+
         switch (drink[0]) {
             case "T":
-                return new Tea(0, false);
+                return new Tea(Integer.valueOf(sugarAmount), false);
             case "C":
-                return new Coffee(0, false);
+                return new Coffee(Integer.valueOf(sugarAmount), false);
             case "H":
-                return  new Chocolate(0, false);
+                return  new Chocolate(Integer.valueOf(sugarAmount), false);
             default:
                 return new Message(drink[1]);
         }
@@ -69,5 +71,18 @@ class Message implements Response {
 
     public Message(String message) {
         this.message = message;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Message message1 = (Message) o;
+        return Objects.equals(message, message1.message);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(message);
     }
 }
