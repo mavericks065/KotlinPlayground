@@ -1,13 +1,11 @@
 package au.com.nig.coffemachine;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CoffeeMachineTest {
     @Test
@@ -25,6 +23,20 @@ public class CoffeeMachineTest {
     }
 
     @Test
+    public void shouldReturnAmountMissingMessageForTea(){
+        // Given
+        String input = "T:1:0";
+        BigDecimal amount = BigDecimal.valueOf(0.1);
+
+        // When
+        CoffeeMachine coffeeMachine = new CoffeeMachine();
+        Response result = coffeeMachine.order(input, amount);
+
+        // Then
+        assertEquals(new Message("Missing Amount: 0.3"), result);
+    }
+
+    @Test
     public void shouldReceiveCorrectInstructionToMakeChocolate(){
         // Given
         String input = "H::";
@@ -36,6 +48,21 @@ public class CoffeeMachineTest {
 
         // Then
         assertEquals(new Chocolate(0,false), result);
+    }
+
+
+    @Test
+    public void shouldReturnAmountMissingMessageForChocolate(){
+        // Given
+        String input = "H::";
+        BigDecimal amount = BigDecimal.valueOf(0.4);
+
+        // When
+        CoffeeMachine coffeeMachine = new CoffeeMachine();
+        Response result = coffeeMachine.order(input, amount);
+
+        // Then
+        assertEquals(new Message("Missing Amount: 0.1"), result);
     }
 
     @Test

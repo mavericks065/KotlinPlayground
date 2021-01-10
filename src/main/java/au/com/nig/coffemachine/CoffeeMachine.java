@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class CoffeeMachine {
-    public Response order(String input, BigDecimal price) {
+    public Response order(String input, BigDecimal amount) {
         String[] drink = input.split(":");
 
         String sugarAmount = drink.length == 1 ? String.valueOf(0) : drink[1];
@@ -14,18 +14,22 @@ public class CoffeeMachine {
             hasStick = true;
 
         CoffeeMachineFactory coffeeMachineFactory = new CoffeeMachineFactory();
-        return coffeeMachineFactory.getResponse(drink, sugarAmount, hasStick, price);
+        return coffeeMachineFactory.getResponse(drink, sugarAmount, hasStick, amount);
     }
 }
 
 class CoffeeMachineFactory {
-    public Response getResponse(String[] responseType, String sugarAmount, boolean hasStick, BigDecimal price) {
+    public Response getResponse(String[] responseType, String sugarAmount, boolean hasStick, BigDecimal amount) {
         switch (responseType[0]) {
             case "T":
-//                if (correctprice)
+                if (amount.compareTo(BigDecimal.valueOf(0.4)) >= 0 )
                     return new Tea(Integer.valueOf(sugarAmount), hasStick);
-//                else
-//                    return Message("Missing amount:")
+                else {
+                    BigDecimal teaPrice = BigDecimal.valueOf(0.4);
+                    BigDecimal diff = teaPrice.subtract(amount);
+                    return new Message("Missing Amount: " + diff.toString());
+                }
+
             case "C":
                 return new Coffee(Integer.valueOf(sugarAmount), hasStick);
             case "H":
@@ -102,4 +106,12 @@ class Message implements Response {
     public int hashCode() {
         return Objects.hash(message);
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "message='" + message + '\'' +
+                '}';
+    }
+
 }
