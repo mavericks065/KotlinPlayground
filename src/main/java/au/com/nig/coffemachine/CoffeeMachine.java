@@ -19,21 +19,44 @@ public class CoffeeMachine {
 }
 
 class CoffeeMachineFactory {
+    enum DrinkSpecificity {
+        Tea(BigDecimal.valueOf(0.4)),
+        Coffee(BigDecimal.valueOf(0.6)),
+        Chocolate(BigDecimal.valueOf(0.5));
+
+        private final BigDecimal price;
+        DrinkSpecificity(BigDecimal price) {
+            this.price = price;
+        }
+
+        public BigDecimal getPrice() {
+            return price;
+        }
+    }
+
     public Response getResponse(String[] responseType, String sugarAmount, boolean hasStick, BigDecimal amount) {
         switch (responseType[0]) {
             case "T":
-                if (amount.compareTo(BigDecimal.valueOf(0.4)) >= 0 )
+                if (amount.compareTo(DrinkSpecificity.Tea.getPrice()) >= 0 )
                     return new Tea(Integer.valueOf(sugarAmount), hasStick);
                 else {
-                    BigDecimal teaPrice = BigDecimal.valueOf(0.4);
-                    BigDecimal diff = teaPrice.subtract(amount);
+                    BigDecimal diff = DrinkSpecificity.Tea.getPrice().subtract(amount);
                     return new Message("Missing Amount: " + diff.toString());
                 }
-
             case "C":
-                return new Coffee(Integer.valueOf(sugarAmount), hasStick);
+                if (amount.compareTo(DrinkSpecificity.Coffee.getPrice()) >= 0 )
+                    return new Coffee(Integer.valueOf(sugarAmount), hasStick);
+                else {
+                    BigDecimal diff = DrinkSpecificity.Coffee.getPrice().subtract(amount);
+                    return new Message("Missing Amount: " + diff.toString());
+                }
             case "H":
-                return new Chocolate(Integer.valueOf(sugarAmount), hasStick);
+                if (amount.compareTo(DrinkSpecificity.Chocolate.getPrice()) >= 0 )
+                    return new Chocolate(Integer.valueOf(sugarAmount), hasStick);
+                else {
+                    BigDecimal diff = DrinkSpecificity.Chocolate.getPrice().subtract(amount);
+                    return new Message("Missing Amount: " + diff.toString());
+                }
             default:
                 return new Message(responseType[1]);
         }
@@ -113,5 +136,4 @@ class Message implements Response {
                 "message='" + message + '\'' +
                 '}';
     }
-
 }

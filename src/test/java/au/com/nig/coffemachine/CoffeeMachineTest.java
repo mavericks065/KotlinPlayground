@@ -80,6 +80,20 @@ public class CoffeeMachineTest {
     }
 
     @Test
+    public void shouldReturnAmountMissingMessageForCoffee(){
+        // Given
+        String input = "C:2:0";
+        BigDecimal amount = BigDecimal.valueOf(0.5);
+
+        // When
+        CoffeeMachine coffeeMachine = new CoffeeMachine();
+        Response result = coffeeMachine.order(input, amount);
+
+        // Then
+        assertEquals(new Message("Missing Amount: 0.1"), result);
+    }
+
+    @Test
     @DisplayName("return the given message")
     public void shouldReceiveMessageAndReturnMessage(){
         // Given
