@@ -1,9 +1,10 @@
 package au.com.nig.coffemachine;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class CoffeeMachine {
-    public Response order(String input) {
+    public Response order(String input, BigDecimal price) {
         String[] drink = input.split(":");
 
         String sugarAmount = drink.length == 1 ? String.valueOf(0) : drink[1];
@@ -13,19 +14,22 @@ public class CoffeeMachine {
             hasStick = true;
 
         CoffeeMachineFactory coffeeMachineFactory = new CoffeeMachineFactory();
-        return coffeeMachineFactory.getResponse(drink, sugarAmount, hasStick);
+        return coffeeMachineFactory.getResponse(drink, sugarAmount, hasStick, price);
     }
 }
 
 class CoffeeMachineFactory {
-    public Response getResponse(String[] responseType, String sugarAmount, boolean hasStick) {
+    public Response getResponse(String[] responseType, String sugarAmount, boolean hasStick, BigDecimal price) {
         switch (responseType[0]) {
             case "T":
-                return new Tea(Integer.valueOf(sugarAmount), hasStick);
+//                if (correctprice)
+                    return new Tea(Integer.valueOf(sugarAmount), hasStick);
+//                else
+//                    return Message("Missing amount:")
             case "C":
                 return new Coffee(Integer.valueOf(sugarAmount), hasStick);
             case "H":
-                return  new Chocolate(Integer.valueOf(sugarAmount), hasStick);
+                return new Chocolate(Integer.valueOf(sugarAmount), hasStick);
             default:
                 return new Message(responseType[1]);
         }
@@ -62,11 +66,13 @@ class Tea extends Drink {
         super(sugar, hasStick);
     }
 }
+
 class Coffee extends Drink {
     public Coffee(Integer sugar, Boolean hasStick) {
         super(sugar, hasStick);
     }
 }
+
 class Chocolate extends Drink {
     public Chocolate(Integer sugar, Boolean hasStick) {
         super(sugar, hasStick);

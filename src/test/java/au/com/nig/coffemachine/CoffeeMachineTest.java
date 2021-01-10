@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -12,10 +14,11 @@ public class CoffeeMachineTest {
     public void shouldReceiveCorrectInstructionToMakeTea(){
         // Given
         String input = "T:1:0";
+        BigDecimal amount = BigDecimal.valueOf(0.4);
 
         // When
         CoffeeMachine coffeeMachine = new CoffeeMachine();
-        Response result = coffeeMachine.order(input);
+        Response result = coffeeMachine.order(input, amount);
 
         // Then
         assertEquals(new Tea(1, true), result);
@@ -25,10 +28,11 @@ public class CoffeeMachineTest {
     public void shouldReceiveCorrectInstructionToMakeChocolate(){
         // Given
         String input = "H::";
+        BigDecimal amount = BigDecimal.valueOf(0.5);
 
         // When
         CoffeeMachine coffeeMachine = new CoffeeMachine();
-        Response result = coffeeMachine.order(input);
+        Response result = coffeeMachine.order(input, amount);
 
         // Then
         assertEquals(new Chocolate(0,false), result);
@@ -38,10 +42,11 @@ public class CoffeeMachineTest {
     public void shouldReceiveCorrectInstructionToMakeCoffee(){
         // Given
         String input = "C:2:0";
+        BigDecimal amount = BigDecimal.valueOf(0.6);
 
         // When
         CoffeeMachine coffeeMachine = new CoffeeMachine();
-        Response result = coffeeMachine.order(input);
+        Response result = coffeeMachine.order(input, amount);
 
         // Then
         assertEquals(new Coffee(2,true), result);
@@ -52,10 +57,11 @@ public class CoffeeMachineTest {
     public void shouldReceiveMessageAndReturnMessage(){
         // Given
         String input = "M:Messages";
+        BigDecimal amount = BigDecimal.valueOf(0.0);
 
         // When
         CoffeeMachine coffeeMachine = new CoffeeMachine();
-        Response result = coffeeMachine.order(input);
+        Response result = coffeeMachine.order(input, amount);
 
         // Then
         assertEquals(new Message("Messages"), result);
