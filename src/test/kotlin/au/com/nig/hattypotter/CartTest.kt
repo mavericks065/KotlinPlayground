@@ -64,4 +64,19 @@ internal class CartTest{
         // Then
         assertEquals(0, BigDecimal.valueOf(25.6).compareTo(result))
     }
+
+    @Test
+    fun `for a cart containing 5 different books the price should be 40 - 25% Euros`() {
+        // Given
+        val cart = Cart()
+        cart.addItem(Book("Volume1"))
+        cart.addItem(Book("Volume2"))
+        cart.addItem(Book("Volume3"))
+        cart.addItem(Book("Volume4"))
+        cart.addItem(Book("Volume5"))
+        // When
+        val result = cart.getCartPrice()
+        // Then
+        assertEquals(0, BigDecimal.valueOf(30).compareTo(result))
+    }
 }
