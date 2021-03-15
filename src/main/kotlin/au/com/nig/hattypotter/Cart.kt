@@ -2,8 +2,21 @@ package au.com.nig.hattypotter
 
 import java.math.BigDecimal
 
-object Cart {
-    fun getPrice(books: List<Book>): BigDecimal {
+data class Cart(var books: List<Book> = emptyList(),
+                var priceCalculator: PriceCalculator = PriceCalculator()) {
+
+    fun getCartPrice(): BigDecimal {
+        return priceCalculator.calculatePrice(books)
+    }
+
+    fun addItem(newBook: Book): List<Book> {
+        books = books.plus(newBook)
+        return books;
+    }
+}
+
+class PriceCalculator {
+    fun calculatePrice(books: List<Book>): BigDecimal {
         return if (books.isNotEmpty()) {
             if (books.size == 2 && books.map { it.title }.distinct().size == 2) {
                 Book.PRICE.multiply(BigDecimal(2)).multiply(BigDecimal.valueOf(0.95))
