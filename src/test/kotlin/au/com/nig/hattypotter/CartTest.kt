@@ -5,6 +5,11 @@ import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 
 internal class CartTest{
+
+    /**
+     * basic and simple discount tests
+     */
+
     @Test
     fun `for an empty cart the price should be 0`() {
         // Given
@@ -78,5 +83,23 @@ internal class CartTest{
         val result = cart.getCartPrice()
         // Then
         assertEquals(0, BigDecimal.valueOf(30).compareTo(result))
+    }
+
+    /**
+     * more complicated tests
+     */
+
+    @Test
+    fun `for a cart containing 3 different books and 1 duplicated book the price should be 3 x 8 x 0,9 + 8 Euros`() {
+        // Given
+        val cart = Cart()
+        cart.addItem(Book("Volume1"))
+        cart.addItem(Book("Volume2"))
+        cart.addItem(Book("Volume3"))
+        cart.addItem(Book("Volume1"))
+        // When
+        val result = cart.getCartPrice()
+        // Then
+        assertEquals(0, BigDecimal.valueOf(29.6).compareTo(result))
     }
 }
