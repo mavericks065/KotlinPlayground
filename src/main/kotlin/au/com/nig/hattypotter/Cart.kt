@@ -22,6 +22,8 @@ class PriceCalculator {
                 Book.PRICE.multiply(BigDecimal(2)).multiply(BigDecimal.valueOf(0.95))
             } else if (books.size == 3 && books.map { it.title }.distinct().size == 3) {
                 Book.PRICE.multiply(BigDecimal(3)).multiply(BigDecimal.valueOf(0.9))
+            } else if (books.size == 4 && books.map { it.title }.distinct().size == 4) {
+                Book.PRICE.multiply(BigDecimal(4)).multiply(BigDecimal.valueOf(0.8))
             } else
                 Book.PRICE.multiply(BigDecimal(books.size))
         } else {
