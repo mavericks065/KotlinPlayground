@@ -7,6 +7,8 @@ object Cart {
         return if (books.isNotEmpty()) {
             if (books.size == 2 && books.map { it.title }.distinct().size == 2) {
                 Book.PRICE.multiply(BigDecimal(2)).multiply(BigDecimal.valueOf(0.95))
+            } else if (books.size == 3 && books.map { it.title }.distinct().size == 3) {
+                Book.PRICE.multiply(BigDecimal(3)).multiply(BigDecimal.valueOf(0.9))
             } else
                 Book.PRICE.multiply(BigDecimal(books.size))
         } else {
