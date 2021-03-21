@@ -29,7 +29,33 @@ object BookSetFactory {
             }
 
         }
-        return result.map { books ->
+        val unOptimizedBookSets = transformBooksIntoBookSet(result)
+
+        val discounts = unOptimizedBookSets.groupBy { it.setDiscount }
+
+        return if (discounts.contains(TEN_PERCENT) && discounts.contains(TWENTY_FIVE_PERCENT)) {
+            val finalListOfBooks = unmergeBooks(discounts)
+            transformBooksIntoBookSet(finalListOfBooks)
+        } else
+            discounts.flatMap { it.value }
+    }
+
+    private fun unmergeBooks(discounts: Map<Discount, List<BookSet>>): MutableList<Set<Book>> {
+        val highDiscount: Set<Book> = discounts.getValue(TWENTY_FIVE_PERCENT)[0].books
+        val lowDiscount: Set<Book> = discounts.getValue(TEN_PERCENT)[0].books
+        val books: Set<Book> = highDiscount.subtract(lowDiscount)
+
+        val finalListOfBooks = discounts.flatMap { it.value.map { it.books } }
+            .minusElement(highDiscount)
+            .minusElement(lowDiscount)
+            .plusElement(highDiscount.minusElement(books.first()))
+            .plusElement(lowDiscount.plusElement(books.first()))
+            .toMutableList()
+        return finalListOfBooks
+    }
+
+    private fun transformBooksIntoBookSet(result: MutableList<Set<Book>>) =
+        result.map { books ->
             val discount = when (books.size) {
                 2 -> FIVE_PERCENT
                 3 -> TEN_PERCENT
@@ -39,5 +65,4 @@ object BookSetFactory {
             }
             BookSet(books, discount)
         }.toList()
-    }
 }
