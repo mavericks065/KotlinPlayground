@@ -14,22 +14,8 @@ object BookSetFactory {
     }
 
     fun getOptimizedBookSetsForCart(items: List<Item>): List<BookSet> {
-        val result: MutableList<Set<Book>> = mutableListOf(items.map { it.book }.toSet())
-
-        var areThereLeftOverItems = true
-        var leftOverItems: List<Item> = items
-        while (areThereLeftOverItems) {
-            leftOverItems = leftOverItems.map { (book, quantity) -> Item(book, quantity - 1) }
-                .filter { it.qtity > 0 }
-            if (leftOverItems.isEmpty()) {
-                areThereLeftOverItems = false
-            } else {
-                result.add(leftOverItems.map { it.book }.toSet())
-                areThereLeftOverItems = true
-            }
-
-        }
-        val unOptimizedBookSets = transformBooksIntoBookSet(result)
+        val setOfBooks = makeOrderedSizeSetOfBooks(items)
+        val unOptimizedBookSets = transformBooksIntoBookSet(setOfBooks)
 
         val discounts = unOptimizedBookSets.groupBy { it.setDiscount }
 
@@ -40,18 +26,37 @@ object BookSetFactory {
             discounts.flatMap { it.value }
     }
 
-    private fun unmergeBooks(discounts: Map<Discount, List<BookSet>>): MutableList<Set<Book>> {
-        val highDiscount: Set<Book> = discounts.getValue(TWENTY_FIVE_PERCENT)[0].books
-        val lowDiscount: Set<Book> = discounts.getValue(TEN_PERCENT)[0].books
-        val books: Set<Book> = highDiscount.subtract(lowDiscount)
+    private fun makeOrderedSizeSetOfBooks(items: List<Item>): MutableList<Set<Book>> {
+        val setOfBooks = mutableListOf(items.map { it.book }.toSet())
 
-        val finalListOfBooks = discounts.flatMap { it.value.map { it.books } }
+        var areThereLeftOverItems = true
+        var leftOverItems: List<Item> = items
+        while (areThereLeftOverItems) {
+            leftOverItems = leftOverItems.map { (book, quantity) -> Item(book, quantity - 1) }
+                .filter { it.qtity > 0 }
+            if (leftOverItems.isEmpty()) {
+                areThereLeftOverItems = false
+            } else {
+                setOfBooks.add(leftOverItems.map { it.book }.toSet())
+                areThereLeftOverItems = true
+            }
+
+        }
+        return setOfBooks
+    }
+
+    private fun unmergeBooks(discounts: Map<Discount, List<BookSet>>): MutableList<Set<Book>> {
+        val highDiscount = discounts.getValue(TWENTY_FIVE_PERCENT)[0].books
+        val lowDiscount = discounts.getValue(TEN_PERCENT)[0].books
+        val books = highDiscount.subtract(lowDiscount)
+
+        return discounts.flatMap { (_, value) -> value.map { it.books } }
+            .asSequence()
             .minusElement(highDiscount)
             .minusElement(lowDiscount)
             .plusElement(highDiscount.minusElement(books.first()))
             .plusElement(lowDiscount.plusElement(books.first()))
             .toMutableList()
-        return finalListOfBooks
     }
 
     private fun transformBooksIntoBookSet(result: MutableList<Set<Book>>) =
