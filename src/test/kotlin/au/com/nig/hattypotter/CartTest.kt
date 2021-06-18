@@ -1,6 +1,5 @@
 package au.com.nig.hattypotter
 
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
@@ -65,4 +64,46 @@ internal class CartTest {
         // Then
         assertEquals(0, BigDecimal.valueOf(30.0).compareTo(result))
     }
+
+    @Test
+    fun `for 3 different books and 1 same book for total of 4 books the price should be 24 * 0,9 EUR + 8 EUR`(){
+        // Given
+        val listOfBooks = listOf(Book("Volume 1"), Book("Volume 2"), Book("Volume 3"), Book("Volume 3"))
+
+        // When
+        val result = Cart.getPrice(listOfBooks)
+
+        // Then
+        assertEquals(0, BigDecimal.valueOf(29.6).compareTo(result))
+    }
+
+    @Test
+    fun `findSet`(){
+        // Given
+        val listOfBooks = listOf(Book("Volume 1"), Book("Volume 2"), Book("Volume 3"), Book("Volume 3"))
+
+        // When
+        val result = Cart.findSetSize(listOfBooks) //
+
+        // Then
+        assertEquals(3, result)
+    }
+
+    @Test
+    fun `findListOfSetOfBooks`(){
+        // Given
+        val listOfBooks = listOf(Book("Volume 1"), Book("Volume 2"), Book("Volume 3"), Book("Volume 2"), Book("Volume 3"))
+        val setOne = listOf(Book("Volume 1"), Book("Volume 2"), Book("Volume 3"))
+        val setTwo = listOf(Book("Volume 2"), Book("Volume 3"))
+        val expected = listOf(setOne, setTwo)
+
+        // When
+        val result = Cart.findBookSet(listOfBooks)
+
+        // Then
+        assertEquals(expected, result)
+    }
+
+    // [1,2,3,3] set would be [1,2,3]
+    // [1,2,3,2,3] set would be [[1,2,3], [2,3]]
 }
