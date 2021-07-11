@@ -22,7 +22,6 @@ class TagTest {
 
         // Then
         assertEquals(expectedFoundTags, result)
-
     }
 }
 
