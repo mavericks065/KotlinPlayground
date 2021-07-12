@@ -24,5 +24,5 @@ println(getRelatedTag(dataSample, ["host:hostA"]))
 println(getRelatedTag(dataSample, ["role:db"]))
 // ["host:hostB", "host:hostC", "host:hostD", "availability-zone:ap-south-east-2a", "availability-zone:ap-south-east-2b"]
 println(getRelatedTag(dataSample, ["role:db", "availability-zone:ap-south-east-2b"]))
-// ["host:hostB", "host:hostC"]
+// ["host:hostD", "host:hostC"]
 ```
