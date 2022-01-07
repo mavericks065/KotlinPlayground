@@ -10,10 +10,10 @@ object ParenthesisValidator {
         Pair('{' , '}'),
         Pair('[' , ']')
     )
-    fun checkingParenthesis(content: String): Boolean {
+    fun checkingParenthesis(formatted: String): Boolean {
         val parenthesisStack = Stack<Char>()
 
-        content.toCharArray().forEach{ char: Char  ->
+        formatted.toCharArray().forEach{ char: Char  ->
             if (leftParenthesis.contains(char)) {
                 parenthesisStack.push(char)
             } else if (rightParenthesis.contains(char)) {
